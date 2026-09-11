@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registro Bus HOME - Firebase</title>
+<title>Registro Bus Home Delivery</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>tailwind.config={darkMode:"class"}</script>
@@ -26,6 +26,7 @@
   .dark .map-seat-ocupado{ background-color:#16a34a !important; border-color:#15803d !important }
   .dark input, .dark select{ background-color:#27272a !important; border-color:#3f3f46 !important; color:#fafafa !important }
   .dark input::placeholder{ color:#71717a !important }
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 </style>
 <script>
 (function(){
@@ -91,7 +92,7 @@ function render(){ const s=state; const isDark = s.theme==="dark"; document.docu
       <h1 class="mt-6 text-[15px] leading-relaxed text-zinc-700 max-w-[360px] font-medium">Nuevas rutas, grandes recuerdos. El viaje de confraternidad empieza aquí, ¡súbete al bus del equipo y registra tu asistencia!</h1>
       <div class="mt-6 w-full max-w-[300px] h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-[#0066CC] to-[#FF6B00]" style="width:${s.progress}%"></div></div>
       <p class="mt-2 text-[12px] text-zinc-400">Cargando... ${s.progress}%</p>
-      <img src="${LOGO_HOME}" class="mt-10 h-[32px] object-contain opacity-60 bg-white rounded-lg p-1 border"/>
+      <div class="mt-10 h-[32px] w-[32px] flex items-center justify-center opacity-60 bg-white rounded-lg p-1 border text-[18px]">🚌</div>
     </div>`; return;
   }
   const filtrados=s.registros.filter(r=>{
@@ -105,7 +106,7 @@ function render(){ const s=state; const isDark = s.theme==="dark"; document.docu
   root.innerHTML=`<div class="min-h-screen max-w-[720px] mx-auto pb-10">
   <header class="sticky top-0 z-20 ${isDark?'bg-zinc-900/90 border-zinc-800':'bg-white/90 border-zinc-200'} backdrop-blur border-b">
     <div class="px-4 py-3 flex items-center gap-3">
-      <img src="${LOGO_HOME}" class="h-[48px] object-contain bg-white rounded-xl p-1.5 border shadow-sm"/>
+      <div class="h-[48px] w-[48px] flex items-center justify-center bg-white rounded-xl p-1.5 border shadow-sm text-[26px]">🚌</div>
       <div class="flex-1"><h1 class="font-bold text-[17px]">Registro Bus</h1><p class="text-[12px] text-zinc-500">Control de ocupación en tiempo real</p></div>
       <div class="flex items-center gap-2"><button id="btnTheme" type="button" title="Cambiar tema" class="w-9 h-9 rounded-full border flex items-center justify-center text-[14px] ${isDark?'bg-zinc-800 border-zinc-700 text-white':'bg-white border-zinc-200'}">${isDark?'☀️':'🌙'}</button><div class="flex flex-col items-end"><span class="text-[10px] px-2 py-1 rounded-full ${s.fbConnected?'bg-green-100 text-green-700':'bg-red-100 text-red-700'}">${s.fbConnected?'● Conectado':'○ Sin conexión'}</span><span class="text-[11px] ${isDark?'text-zinc-400':'text-zinc-500'} mt-1">${occ}/40</span></div></div>
     </div>
@@ -212,6 +213,5 @@ const iv=setInterval(()=>{ cur++; state.progress=Math.min(100, Math.round((cur/t
 setTimeout(()=>{state.loading=false; render();},5500);
 render();
 </script>
-<style>@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}</style>
 </body>
 </html>
